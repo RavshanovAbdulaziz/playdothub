@@ -1,0 +1,521 @@
+/* ============= ASOSIY O'ZGARUVCHILAR ============= */
+:root {
+    --primary: #6366f1;    /* Asosiy rang */
+    --secondary: #4f46e5;  /* Ikkilamchi rang */
+    --accent: #f43f5e;     /* Accent rang */
+    --background: #f8fafc; /* Orqa fon */
+}
+
+/* ============= GLOBAL STILLAR ============= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--background);
+    line-height: 1.5;
+}
+
+nav {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.games-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+
+.game-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.game-info {
+    padding: 1.25rem;
+}
+
+.game-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+}
+
+.game-description {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.play-button {
+    display: block;
+    width: 100%;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: transform 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.play-button:hover {
+    transform: scale(1.05);
+}
+
+/* ============= MODAL OYNA ============= */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    background: white;
+    margin: 2vh auto;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+/* Fullscreen styles - to'liq qayta yozdik */
+.modal.fullscreen {
+    background: #000;
+}
+
+.modal.fullscreen .modal-content {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+
+.modal.fullscreen .modal-header {
+    padding: 0.5rem 1rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    min-height: 60px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.modal-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.modal-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    flex: 1;
+    position: relative;
+    background: #000;
+}
+
+#gameFrame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ============= LOADING INDIKATOR ============= */
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--primary);
+}
+
+footer {
+    background: white;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* ============= PULL TO REFRESH ============= */
+.pull-to-refresh {
+    /* Pull to refresh stillar */
+}
+
+/* ============= RESPONSIVE DIZAYN ============= */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .games-container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+}
+
+/* Rasm xatolari uchun fallback */
+.game-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f3f4f6;
+}
+
+.game-image::after {
+    content: 'Image not found';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6b7280;
+}
+
+/* ============= MOBILE NAVBAR IKONLARI ============= */
+/* Navbar ikonlari uchun SVG larni data URL sifatida yozamiz */
+.nav-links a[data-category="all"]::before {
+    /* Barcha o'yinlar ikonkasi - 9 ta to'rtburchak */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zm-12 6h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zm-12 6h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z'/%3E%3C/svg%3E");
+}
+
+.nav-links a[data-category="action"]::before {
+    /* Action o'yinlar ikonkasi - o't/chaqmoq */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z'/%3E%3C/svg%3E");
+}
+
+.nav-links a[data-category="adventure"]::before {
+    /* Adventure o'yinlar ikonkasi - kompas */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E");
+}
+
+.nav-links a[data-category="sports"]::before {
+    /* Sport o'yinlar ikonkasi - to'p */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E");
+}
+
+.nav-links a[data-category="puzzle"]::before {
+    /* Puzzle o'yinlar ikonkasi - puzzle bo'lagi */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z'/%3E%3C/svg%3E");
+}
+
+/* ============= MOBILE NAVIGATION ============= */
+@media (max-width: 768px) {
+    /* Bottom navigation bar */
+    .nav-container {
+        position: relative;
+    }
+
+    .logo {
+        font-size: 1.25rem;
+    }
+
+    .nav-links {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 99;
+    }
+
+    /* Navigation linklar */
+    .nav-links a {
+        font-size: 0.875rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.5rem;
+    }
+
+    /* Ikonka o'lchamlari */
+    .nav-links a::before {
+        content: '';
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+/* ============= O'YIN KARTOCHKALARI ============= */
+.game-card {
+    /* O'yin kartochkasi stillar */
+}
+
+/* ============= MODAL OYNA ============= */
+.modal {
+    /* Modal oyna stillar */
+}
+
+/* ============= LOADING INDIKATOR ============= */
+.loading {
+    /* Loading indikator stillar */
+}
+
+/* ============= PULL TO REFRESH ============= */
+.pull-to-refresh {
+    /* Pull to refresh stillar */
+}
+
+/* ============= RESPONSIVE DIZAYN ============= */
+@media (max-width: 768px) {
+    /* Mobile qurilmalar uchun moslashuvlar */
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+
+    /* Games Grid */
+    .games-container {
+        padding: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        padding-bottom: 80px; /* Bottom navigation uchun joy */
+    }
+
+    .game-card {
+        border-radius: 8px;
+    }
+
+    .game-image {
+        height: 160px;
+    }
+
+    .game-info {
+        padding: 0.75rem;
+    }
+
+    .game-info h3 {
+        font-size: 1rem;
+    }
+
+    .game-description {
+        font-size: 0.75rem;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .category-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .play-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .modal-header {
+        padding: 0.75rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1rem;
+    }
+
+    .modal-btn {
+        padding: 0.25rem;
+    }
+
+    .modal-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Pull to refresh effect */
+    .games-container {
+        position: relative;
+    }
+
+    .pull-to-refresh {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        right: 0;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 0.875rem;
+        transform: translateY(0);
+        transition: transform 0.3s;
+    }
+
+    .pull-to-refresh.active {
+        transform: translateY(50px);
+    }
+}
+
+/* ============= LANDSCAPE MODE ============= */
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Landscape (yotiq) holatdagi moslashuvlar */
+    .games-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        padding: 0.25rem;
+    }
+
+    .nav-links a {
+        flex-direction: row;
+        font-size: 0.75rem;
+    }
+
+    .nav-links a::before {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ============= TOUCH QURILMALAR OPTIMIZATSIYASI ============= */
+@media (hover: none) {
+    /* Touch qurilmalar uchun hover effektlarni o'chirish */
+    .game-card:hover {
+        transform: none;
+    }
+
+    .play-button:hover {
+        transform: none;
+    }
+
+    .play-button:active {
+        transform: scale(0.95);
+    }
+}
